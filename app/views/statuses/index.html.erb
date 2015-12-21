@@ -1,29 +1,19 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1>Statuses from the black and white people</h1>
+</div>
 
-<h1>Listing Statuses</h1>
+<% @statuses.each do |status| %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Contenido</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <div class="status">
+      <strong><%= status.nombre %></strong>
+      <p><%= status.contenido %></p>
+    <div>
+      <%= link_to "Ago " + time_ago_in_words(status.created_at), status %>
+    <span class="admin">
+      | <%= link_to "Edit", edit_status_path(status) %> |
+        <%= link_to "Delete", status, data: { confirm: 'Are you ready?'} %>
+    </span>
+  </div>
+</div>
 
-  <tbody>
-    <% @statuses.each do |status| %>
-      <tr>
-        <td><%= status.nombre %></td>
-        <td><%= status.contenido %></td>
-        <td><%= link_to 'Show', status %></td>
-        <td><%= link_to 'Edit', edit_status_path(status) %></td>
-        <td><%= link_to 'Destroy', status, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Status', new_status_path %>
+<% end %>
